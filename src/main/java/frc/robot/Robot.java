@@ -27,10 +27,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "Main Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static DriveTrain driveTrain;
   public static Intake intake;
@@ -53,10 +49,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
-
     // Initialize Drive Subsystem
     driveTrain = new DriveTrain();
 
@@ -78,8 +70,6 @@ public class Robot extends TimedRobot {
 
     // Setting Camera view for Shuffleboard
     limeTable.getEntry("stream").setNumber(2.0);
-
-    //climbing.armReset();
   }
 
   /**
@@ -112,9 +102,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
     DriveTrain.startBackUpTime = System.currentTimeMillis();
   }
 
@@ -123,25 +110,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case "Boring":
-      default:
-        if(crossedLine) {
-          driveTrain.targetGoalWithRange(joy);
-        }
-        else {
-          driveTrain.backUp();
-          
-        }
-        break;
-    }
-
-
+      if(crossedLine) {
+        driveTrain.targetGoalWithRange(joy);
+        // Anything else that happens during auto goes here.
+      } else {
+        driveTrain.backUp(); 
+      }
   }
-
   /**
    * This function is called periodically during operator control.
    */
@@ -149,6 +124,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     climbing.checkClimb(joy.getPOV());
+
+
 
     if(joy.getRawButton(3)) {
       climbing.setRaiserUp();
@@ -186,29 +163,6 @@ public class Robot extends TimedRobot {
       limeTable.getEntry("ledMode").setNumber(1);
     }
 
-    
-    // if(joy.getRawButton(5)) {
-    //   intake.setColorFlapUp();
-    // }
-    // else if(joy.getRawButton(6)) {
-    //   intake.setColorFlapDown();
-    // }
-    // else {
-    //   intake.setColorFlap(0);
-    // }
-
-    // if(joy.getRawButton(11)) {
-    //   String gameData = "Y";
-    //   controlPanel.getColor(gameData);
-    //   controlPanel.stopOnColor();
-    // }
-    // else if(joy.getRawButtonPressed(12)) {
-    //   controlPanel.spinFourTimes();
-    // }
-    // else {
-    //   //controlPanel.setColorWheel(0);
-    // }
-    
   }
 
   /**

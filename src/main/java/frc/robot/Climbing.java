@@ -23,14 +23,13 @@ public class Climbing {
         raiseMotor = new WPI_TalonSRX(Variables.raiseMotorPort);
         climbMotor = new WPI_TalonSRX(Variables.climbMotorPort);
         downLimit = new DigitalInput(8);
-
     }
 
-    public void checkClimb(int pov) {
-        if(pov == 180) {
+    public void checkClimb(int climbAngle) {
+        if(climbAngle == 180) {
             climbMotor.set(ControlMode.PercentOutput, Variables.climbMotorUpSpeed);
         }
-        else if(pov == 0) {
+        else if(climbAngle == 0) {
             climbMotor.set(ControlMode.PercentOutput, Variables.climbMotorDownSpeed);
         }
         else {

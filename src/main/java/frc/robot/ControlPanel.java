@@ -40,10 +40,6 @@ public class ControlPanel {
         kGreenTarget = ColorMatch.makeColor(0.247, 0.541, 0.212);
         kRedTarget = ColorMatch.makeColor(0.320, 0.462, 0.218);
         kYellowTarget = ColorMatch.makeColor(0.297, 0.534, 0.168);
-        // private final Color kBlueTarget = ColorMatch.makeColor(0.177, 0.455, 0.367);
-        // private final Color kGreenTarget = ColorMatch.makeColor(0.226, 0.529, 0.245);
-        // private final Color kRedTarget = ColorMatch.makeColor(0.386, 0.419, 0.194);
-        // private final Color kYellowTarget = ColorMatch.makeColor(0.317, 0.517, 0.165);
 
         matchyMan.addColorMatch(kBlueTarget);
         matchyMan.addColorMatch(kGreenTarget);
@@ -148,11 +144,13 @@ public class ControlPanel {
             //SmartDashboard.putNumber("randy", betterRand);
             controlPanel.set(0.2);
     }
+
     public void stopOnColor(){
       if(seenColor.equals(targetColor)){
         controlPanel.set(0);
       }
     }
+    
     public void encoderReset(){
           controlPanel.setSelectedSensorPosition(0);
           controlPanel.set(ControlMode.Position, 0);

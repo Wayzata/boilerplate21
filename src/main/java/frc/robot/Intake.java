@@ -29,8 +29,6 @@ public class Intake {
     //Rev2mDistanceSensor dSenseHigh;
     //Rev2mDistanceSensor dSenseLow;
 
-
-
     public Intake() {
         intakeMotorOne = new WPI_TalonSRX(Variables.intakeMotorOnePort); 
         conveyorMotor = new WPI_TalonSRX(Variables.conveyorMotorPort);
